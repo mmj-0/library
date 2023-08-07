@@ -23,7 +23,7 @@ body{
 .container{
     overflow: hidden;
     display: flex;
-    min-height: 90dvh;
+    min-height: 80dvh;
 }
 
 
@@ -62,7 +62,7 @@ body{
 
 .stat{
     border: 1px solid red;
-    padding: 1rem 0 0 0;
+    padding: 0rem 0 0 0;
 }
 
 .stat-head{
@@ -99,6 +99,16 @@ body{
     text-align: right;
 }
 
+.side-panel{
+    position: fixed;
+    top: 5.8rem;
+    left: 0;
+    width: 20%;
+    height: 87.7%;
+    overflow-y: hidden;
+}
+
+
 
 
 /*Main*/
@@ -109,8 +119,13 @@ main{
 
 
 main{
-    padding: 1rem;
+    padding: 1% 1% 1% 21%;
+
     flex: 1;
+}
+
+.body{
+    overflow: hidden;
 }
 
 .books{
