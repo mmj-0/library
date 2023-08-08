@@ -34,6 +34,12 @@ body{
     padding: 1.5rem 1.5rem 1.5rem 4rem;
     color: aliceblue;
     font-size: 1.2rem;
+    position: fixed;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 24;
 }
 
 
@@ -107,10 +113,10 @@ body{
 
 .side-panel{
     position: fixed;
-    top: 5.8rem;
+    top: 92px;
     left: 0;
-    width: 20%;
-    height: 87.7%;
+    width: 18%;
+    height: calc(100% - 92px);
     overflow-y: hidden;
 }
 
@@ -134,20 +140,20 @@ main{
 
 
 main{
-    padding: 1% 1% 1% 21%;
+    padding: 104px 1% 1% 19%;
 
     flex: 1;
 }
 
 .body{
-
+    min-height: calc(100dvh - 92px);
 }
 
 .books{
     overflow: auto;
     display: grid;
 
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1rem;
 }
 
