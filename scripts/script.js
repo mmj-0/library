@@ -184,8 +184,8 @@ function createBook(books){
 
     subBtn.innerText = '-';
 
-    pc.appendChild(addBtn);
     pc.appendChild(subBtn);
+    pc.appendChild(addBtn);
 
     //complete-contains complete checkbox and edit button
     let complete = document.createElement('div');   //contains complete checkbox and edit
@@ -223,8 +223,13 @@ function createBook(books){
     //completeBanner
     let compBanner = document.createElement('div'); //completed banner
     compBanner.classList.add('comp-banner');
-    compBanner.classList.add('active');
+
+    
     compBanner.innerHTML = 'COMPLETED!';
+    
+    if(parseInt(books.tpages) === parseInt(books.cpages)){
+        compBanner.classList.add('active');
+    }
 
     book.appendChild(top);
     book.appendChild(read);
