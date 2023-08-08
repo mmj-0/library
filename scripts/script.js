@@ -78,7 +78,7 @@ const addFormSubmit = document.getElementById('addform-sub');
 const error = document.querySelector('.error');
 
 
-const bookHolder = document.getElementsByClassName('books'); //bookgrid div
+const bookHolder = document.querySelector('.books'); //bookgrid div
 
 let library = [];
 
@@ -103,8 +103,136 @@ function addBookToLibrary(){
     createBook(newBook);
 }
 
-function createBook(book){
+function createBook(books){
+    //book
+    let book = document.createElement('div');   //book layout - contains all below ele
+    book.classList.add('book'); 
+
+
+    //top-title, author
+    let top = document.createElement('div');    //title and author contains title and author
+    top.classList.add('top');
     
+    let title = document.createElement('h1');   //title
+    title.innerText = books.name;
+    console.log(title);
+
+    let author = document.createElement('div');     //author
+    author.innerText = `- ${books.author}`;
+    author.classList.add('author');
+    console.log(author);
+
+    top.appendChild(title);
+    top.appendChild(author);
+
+
+
+    //read-totalpages, readpages
+    let read = document.createElement('div');   //contains tp and rp
+    read.classList.add('read');
+
+    let tp = document.createElement('div');     //contains total pages
+    tp.classList.add('tp');
+
+    let totalPages = document.createElement('h2'); //Total Pages
+    totalPages.innerText = 'Total Pages';
+    console.log(totalPages);
+
+    let tpages = document.createElement('p');   //total pages value
+    tpages.innerText= books.tpages;
+    console.log(tpages);
+
+    tp.appendChild(totalPages);
+    tp.appendChild(tpages);
+
+
+
+    let rp = document.createElement('div');    //contains read pages
+    rp.classList.add('rp');
+
+    let completedPages = document.createElement('h2'); // Pages Read
+    completedPages.innerText = 'Pages Read';
+    console.log(completedPages);
+
+    let cpages = document.createElement('p');       // page read values
+    cpages.innerText = books.cpages;
+    console.log(cpages);
+
+    rp.appendChild(completedPages);
+    rp.appendChild(cpages);
+
+
+    let line = document.createElement('div');       //line
+    line.classList.add('line');
+
+
+    read.appendChild(tp);
+    read.appendChild(line);
+    read.appendChild(rp);
+
+
+
+
+    //page counter
+    let pc = document.createElement('div');     //contains buttons to add and sub pages
+    pc.classList.add('pc');
+
+    let addBtn = document.createElement('button');  //adds pages
+    let subBtn = document.createElement('button');  //subtracts pages
+
+    addBtn.innerText = '+';
+
+    subBtn.innerText = '-';
+
+    pc.appendChild(addBtn);
+    pc.appendChild(subBtn);
+
+    //complete-contains complete checkbox and edit button
+    let complete = document.createElement('div');   //contains complete checkbox and edit
+    complete.classList.add('complete');
+
+    
+    //contains checkbox
+    let com = document.createElement('div');    //complete checkbox
+    com.classList.add('com');
+
+    let label = document.createElement('label');
+    label.innerText = 'Completed';
+
+    let input = document.createElement('input');
+    input.type = 'checkbox';
+
+    com.appendChild(label);
+    com.appendChild(input);
+
+
+    //edit button
+    let edit = document.createElement('div');   //edit button
+    edit.classList.add('edit');
+
+    let i = document.createElement('i');
+    i.innerHTML = 'E';
+
+    edit.appendChild(i);
+
+
+    complete.appendChild(com);
+    complete.appendChild(edit);
+
+
+    //completeBanner
+    let compBanner = document.createElement('div'); //completed banner
+    compBanner.classList.add('comp-banner');
+    compBanner.classList.add('active');
+    compBanner.innerHTML = 'COMPLETED!';
+
+    book.appendChild(top);
+    book.appendChild(read);
+    book.appendChild(pc);
+    book.appendChild(complete);
+    book.appendChild(compBanner);
+
+    bookHolder.appendChild(book);
 }
 
 addForm.addEventListener('submit', (e) => {
