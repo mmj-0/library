@@ -230,13 +230,21 @@ main{
 
 .complete{
     display: flex;
-    padding: 1rem 0rem 1rem 0rem;
-    justify-content: center;
+    padding: 1rem 1rem 1rem 1rem;
+    justify-content: space-between;
     align-items: center;
     gap: 1rem;
     font-size: 1.1rem;
     font-family: oswald;
+}
 
+.com > input{
+    margin-left: 1rem;
+}
+
+.edit:hover{
+    transition: 200ms ease-in-out;
+    transform: scale(1.2);
 }
 
 .comp-banner{
@@ -264,7 +272,7 @@ main{
     color: white;
     border: 5px solid white;
     border-radius: 1rem;
-    min-height: 250px;
+    min-height: 490px;
 }
 
 .add-btn:hover{
