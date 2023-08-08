@@ -30,10 +30,37 @@ function addBookToLibrary(){
 
 
 
-form.addEventListener("submit", function(e){
-    e.preventDefault();
-    
-    addBookToLibrary();
-    form.reset();
+
+
+const openformBtn = document.querySelectorAll('[data-form-target]');
+const closeformBtn = document.querySelectorAll('[data-close-button]');
+
+const overlay = document.querySelector('.overlay');
+
+openformBtn.forEach(button => {
+    button.addEventListener('click', () => {
+        const form = document.querySelector(button.dataset.formTarget);
+        openForm(form);
+    })
 })
 
+closeformBtn.forEach(button => {
+    button.addEventListener('click', () => {
+        const form = button.closest('.popup-form')
+        closeForm(form);
+    })
+})
+
+
+function openForm(form){
+    if(form == null) return;
+    form.classList.add('active');
+    overlay.classList.add('active');
+}
+
+
+function closeForm(form){
+    if(form == null) return;
+    form.classList.remove('active');
+    overlay.classList.remove('active');
+}
