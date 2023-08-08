@@ -126,6 +126,7 @@ body{
 /*Main*/
 main{
     background-image: linear-gradient(to bottom, rgba(101, 36, 161, 0.897) , rgba(150, 37, 37, 0.918));
+
     
 
 /*    background: #B79891;  /* fallback for old browsers 
@@ -397,6 +398,12 @@ main{
 .form-body > form > button:hover{
     cursor: pointer;
     background-image: linear-gradient(to bottom, rgb(128, 0, 128), rgba(255, 0, 0, 0.986));
+}
+
+.error{
+    color: red;
+    padding: 2px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 

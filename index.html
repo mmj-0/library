@@ -209,7 +209,7 @@
 
                 <div class="book">
                     <div class="top">
-                        <h1>Harry Potter</h1>
+                        <h1>Harry Potter and The half blood Prince</h1>
                         <div class="author">- J K Rowling</div>
                     </div>
                     <div class="read">
@@ -291,7 +291,7 @@
             <button data-close-button class="close-btn">&times;</button>
         </div>
         <div class="form-body" style="display: flex; flex-direction: column;">
-            <form>
+            <form id="addForm">
                 <label for="bname">Name</label>
                 <input type="text" id="bname" required>
 
@@ -310,8 +310,8 @@
                         <input type="number" id="cpages" required>
                     </div>
                 </div>
-
-                <button type="submit">Add</button>
+                <p class="error"></p>
+                <button id="addform-sub" type="submit">Add</button>
             </form>
         </div>
     </div>
