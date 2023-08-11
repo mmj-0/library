@@ -253,6 +253,8 @@ function createBook(books, bookIndex){
     book.appendChild(compBanner);
 
     bookHolder.appendChild(book);
+
+    dynamic();
 }
 
 addForm.addEventListener('submit', (e) => {
@@ -294,6 +296,7 @@ addForm.addEventListener('submit', (e) => {
 })
 
 const bookHolder = document.querySelector('.books'); 
+function dynamic(){
 let bookSel = bookHolder.querySelectorAll('.book');
 bookSel.forEach(book => {
 
@@ -333,7 +336,7 @@ bookSel.forEach(book => {
         }
         else{
             console.log('yeey');
-            checkbox.checkbox = false;  
+            checkbox.checked = false;  
             console.log('checkbox should be false')
             if(book.querySelector('.comp-banner').classList.contains('active')){
                 console.log('yeyo');
@@ -356,6 +359,9 @@ bookSel.forEach(book => {
         }
     })
 })
+}
+
+dynamic();
 
 
 
