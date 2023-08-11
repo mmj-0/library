@@ -310,11 +310,13 @@ bookSel.forEach(book => {
 
     const checkbox = book.querySelector('.com > input');
 
+    const editBox = book.querySelector('.edit > i');
+
     if(addbtn){
         addbtn.addEventListener('click', () => {
             console.log(cp.innerText);
             if(cp.innerText <= tp.innerText-1)
-                cp.innerText++;
+                ++cp.innerText;
             
             bannercheck();
         })
@@ -323,7 +325,8 @@ bookSel.forEach(book => {
     if(subbtn){
         subbtn.addEventListener('click', () => {
             console.log(cp.innerText);
-            cp.innerText--;
+            if(cp.innerText > 0)
+                cp.innerText--;
             bannercheck();
         })
     }
@@ -358,10 +361,15 @@ bookSel.forEach(book => {
             bannercheck();
         }
     })
+
+    editBox.addEventListener('click', () => {
+        console.log('edit button clicked')
+    })
+    
 })
 }
 
-dynamic();
 
+dynamic();
 
 
