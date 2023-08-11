@@ -35,6 +35,8 @@ const closeformBtn = document.querySelectorAll('[data-close-button]');
 
 const overlay = document.querySelector('.overlay');
 
+let noOfBooks = 0;
+
 openformBtn.forEach(button => {
     button.addEventListener('click', () => {
         const form = document.querySelector(button.dataset.formTarget);
@@ -78,7 +80,7 @@ const addFormSubmit = document.getElementById('addform-sub');
 const error = document.querySelector('.error');
 
 
-const bookHolder = document.querySelector('.books'); //bookgrid div
+ //bookgrid div
 
 let library = [];
 
@@ -99,15 +101,20 @@ function addBookToLibrary(){
     const newBook = new Book(name, author, tpages, cpages);
 
     library.push(newBook);
-    console.log(library);
-    createBook(newBook);
+   // console.log(library);
+    createBook(newBook, noOfBooks);
+    noOfBooks ++;
+
+    if(noOfBooks >= 0 && noOfBooks != null || noOfBooks != undefined)
+        console.log(library[noOfBooks-1]);
+
 }
 
-function createBook(books){
+function createBook(books, bookIndex){
     //book
     let book = document.createElement('div');   //book layout - contains all below ele
     book.classList.add('book'); 
-
+    book.setAttribute('data-number', bookIndex);
 
     //top-title, author
     let top = document.createElement('div');    //title and author contains title and author
@@ -115,12 +122,12 @@ function createBook(books){
     
     let title = document.createElement('h1');   //title
     title.innerText = books.name;
-    console.log(title);
+    //console.log(title);
 
     let author = document.createElement('div');     //author
     author.innerText = `- ${books.author}`;
     author.classList.add('author');
-    console.log(author);
+    //console.log(author);
 
     top.appendChild(title);
     top.appendChild(author);
@@ -135,12 +142,12 @@ function createBook(books){
     tp.classList.add('tp');
 
     let totalPages = document.createElement('h2'); //Total Pages
-    totalPages.innerText = 'Total Pages';
-    console.log(totalPages);
+    totalPages.innerText = 'Total\nPages';
+    //console.log(totalPages);
 
     let tpages = document.createElement('p');   //total pages value
     tpages.innerText= books.tpages;
-    console.log(tpages);
+    //console.log(tpages);
 
     tp.appendChild(totalPages);
     tp.appendChild(tpages);
@@ -151,12 +158,12 @@ function createBook(books){
     rp.classList.add('rp');
 
     let completedPages = document.createElement('h2'); // Pages Read
-    completedPages.innerText = 'Pages Read';
-    console.log(completedPages);
+    completedPages.innerText = 'Pages\nRead';
+    //console.log(completedPages);
 
     let cpages = document.createElement('p');       // page read values
     cpages.innerText = books.cpages;
-    console.log(cpages);
+    //console.log(cpages);
 
     rp.appendChild(completedPages);
     rp.appendChild(cpages);
@@ -179,6 +186,11 @@ function createBook(books){
 
     let addBtn = document.createElement('button');  //adds pages
     let subBtn = document.createElement('button');  //subtracts pages
+
+    //addBtn.dataset.element = '+';
+    //subBtn.dataset.element = '-';
+    subBtn.setAttribute('data-element','-');
+    addBtn.setAttribute('data-element','+');
 
     addBtn.innerText = '+';
 
@@ -211,7 +223,7 @@ function createBook(books){
     edit.classList.add('edit');
 
     let i = document.createElement('i');
-    i.innerHTML = 'E';
+    i.innerHTML = '<i class="fa-solid fa-pen" style="color: #faebd7;"></i>';
 
     edit.appendChild(i);
 
@@ -228,8 +240,11 @@ function createBook(books){
     compBanner.innerHTML = 'COMPLETED!';
     
     if(parseInt(books.tpages) === parseInt(books.cpages)){
+        input.checked = true;
         compBanner.classList.add('active');
     }
+    else  
+        compBanner.classList.remove('active');
 
     book.appendChild(top);
     book.appendChild(read);
@@ -277,3 +292,70 @@ addForm.addEventListener('submit', (e) => {
         clearForm(addForm);
     }
 })
+
+const bookHolder = document.querySelector('.books'); 
+let bookSel = bookHolder.querySelectorAll('.book');
+bookSel.forEach(book => {
+
+    book.addEventListener('click' , () => {console.log(book)})
+
+    const tp = book.querySelector('.tp > p');
+    const cp = book.querySelector('.rp > p');
+     
+    const addbtn = book.querySelector('[data-element = "+"]');
+    const subbtn = book.querySelector('[data-element = "-"]');
+
+    const checkbox = book.querySelector('.com > input');
+
+    if(addbtn){
+        addbtn.addEventListener('click', () => {
+            console.log(cp.innerText);
+            if(cp.innerText <= tp.innerText-1)
+                cp.innerText++;
+            
+            bannercheck();
+        })
+    }
+
+    if(subbtn){
+        subbtn.addEventListener('click', () => {
+            console.log(cp.innerText);
+            cp.innerText--;
+            bannercheck();
+        })
+    }
+
+    function bannercheck(){
+        if(cp.innerText === tp.innerText){
+            book.querySelector('.comp-banner').classList.add('active');
+            checkbox.checked = true;
+            console.log('yeye');
+        }
+        else{
+            console.log('yeey');
+            checkbox.checkbox = false;  
+            console.log('checkbox should be false')
+            if(book.querySelector('.comp-banner').classList.contains('active')){
+                console.log('yeyo');
+                book.querySelector('.comp-banner').classList.remove('active');
+                
+            } 
+            
+        }
+
+    }
+
+    checkbox.addEventListener('click', () =>  {
+        if(checkbox.checked == true){
+            cp.innerText = tp.innerText;
+            bannercheck();
+        }
+        else{
+            cp.innerText = tp.innerText - 1;
+            bannercheck();
+        }
+    })
+})
+
+
+
