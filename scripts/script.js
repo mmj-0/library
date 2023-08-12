@@ -67,10 +67,10 @@ function closeForm(form){
 }
 
 function clearForm(form){
-    bname.value = '';
-    author.value = '';
-    tpages.value = '';
-    cpages.value = '';
+    form.bname.value = '';
+    form.author.value = '';
+    form.tpages.value = '';
+    form.cpages.value = '';
 }
 
 
@@ -295,6 +295,43 @@ addForm.addEventListener('submit', (e) => {
     }
 })
 
+
+//EDIT BUTTON FORM
+const editFormBtn = document.querySelectorAll('.edit > i');
+
+function editForm(){
+    editFormBtn.forEach(button => {
+        button.addEventListener('click', () => {
+            const form = document.querySelector('.popup-edit-form');
+            openEditForm(form);
+        })
+    })
+
+    closeformBtn.forEach(button => {
+        button.addEventListener('click', () => {
+            const form = button.closest('.popup-edit-form')
+            closeEditForm(form);
+        })
+    })
+
+
+    function openEditForm(form){
+        if(form == null) return;
+        form.classList.add('active');
+        overlay.classList.add('active');
+    }
+
+
+    function closeEditForm(form){
+        if(form == null) return;
+        form.classList.remove('active');
+        overlay.classList.remove('active');
+    }
+}
+
+
+
+
 const bookHolder = document.querySelector('.books'); 
 function dynamic(){
 let bookSel = bookHolder.querySelectorAll('.book');
@@ -316,7 +353,7 @@ bookSel.forEach(book => {
         addbtn.addEventListener('click', () => {
             console.log(cp.innerText);
             if(cp.innerText <= tp.innerText-1)
-                ++cp.innerText;
+                cp.innerText++;
             
             bannercheck();
         })
@@ -326,7 +363,7 @@ bookSel.forEach(book => {
         subbtn.addEventListener('click', () => {
             console.log(cp.innerText);
             if(cp.innerText > 0)
-                cp.innerText--;
+                --cp.innerText;
             bannercheck();
         })
     }
@@ -363,13 +400,47 @@ bookSel.forEach(book => {
     })
 
     editBox.addEventListener('click', () => {
-        console.log('edit button clicked')
+        console.log('edit button clicked');
+        
     })
+
     
 })
 }
 
 
 dynamic();
+editForm();
 
+//BOOK EDITING FORM
+// const editFormBtn = document.querySelectorAll('.edit > i');
+
+// function editForm(){
+//     editFormBtn.forEach(button => {
+//         button.addEventListener('click', () => {
+//             const form = document.querySelector('.popup-edit-form');
+//             openEditForm(form);
+//         })
+//     })
+
+//     closeformBtn.forEach(button => {
+//         button.addEventListener('click', () => {
+//             const form = button.closest('.popup-edit-form')
+//             closeEditForm(form);
+//         })
+//     })
+// }
+
+// function openEditForm(form){
+//     if(form == null) return;
+//     form.classList.add('active');
+//     overlay.classList.add('active');
+// }
+
+
+// function closeEditForm(form){
+//     if(form == null) return;
+//     form.classList.remove('active');
+//     overlay.classList.remove('active');
+// }
 

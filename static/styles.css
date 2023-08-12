@@ -290,7 +290,7 @@ main{
 
 
 /*Form*/
-.popup-form{
+.popup-form, .popup-edit-form{
     position: fixed;
     top: 50%;
     left: 50%;
@@ -304,7 +304,48 @@ main{
     padding: 0rem 1rem 1rem 1rem;
 }
 
-.popup-form.active{
+#editform-sub{
+    border: none;
+    border-radius: 1rem;
+    font-size: 1.2rem;
+    background-image: linear-gradient(to bottom, rgba(0, 128, 68, 0.651), rgba(0, 68, 255, 0.616));
+    font-family: borel;
+    padding-top: 0.9rem;
+    color: white;
+    font-weight: bold;
+    flex: 1;
+}
+
+#editform-sub:hover{
+    cursor: pointer;
+    background-image: linear-gradient(to bottom, rgba(0, 128, 68, 0.822), rgba(0, 68, 255, 0.822));
+
+}
+
+#remove{
+    border: none;
+    border-radius: 1rem;
+    font-size: 1.2rem;
+    background-image: linear-gradient(to bottom, rgba(128, 0, 0, 0.733), rgba(255, 0, 0, 0.719));
+    font-family: borel;
+    padding-top: 0.9rem;
+    color: white;
+    font-weight: bold;
+    flex: 1;
+}
+
+#remove:hover{
+    cursor: pointer;
+    background-image: linear-gradient(to bottom, rgba(128, 0, 0, 0.89), rgba(255, 0, 0, 0.822));
+
+}
+
+.btn-holder{
+    display: flex;
+    gap: 1rem;
+}
+
+.popup-form.active, .popup-edit-form.active{
     transform: translate(-50%,-50%) scale(1);
 }
 
