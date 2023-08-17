@@ -299,13 +299,13 @@ addForm.addEventListener('submit', (e) => {
 //EDIT BUTTON FORM
 const editFormBtn = document.querySelectorAll('.edit > i');
 
-function editForm(){
-    editFormBtn.forEach(button => {
-        button.addEventListener('click', () => {
-            const form = document.querySelector('.popup-edit-form');
-            openEditForm(form);
-        })
-    })
+
+    // editFormBtn.forEach(button => {
+    //     button.addEventListener('click', () => {
+    //         const form = document.querySelector('.popup-edit-form');
+    //         openEditForm(form);
+    //     })
+    // })
 
     closeformBtn.forEach(button => {
         button.addEventListener('click', () => {
@@ -313,22 +313,6 @@ function editForm(){
             closeEditForm(form);
         })
     })
-
-
-    function openEditForm(form){
-        if(form == null) return;
-        form.classList.add('active');
-        overlay.classList.add('active');
-    }
-
-
-    function closeEditForm(form){
-        if(form == null) return;
-        form.classList.remove('active');
-        overlay.classList.remove('active');
-    }
-}
-
 
 
 
@@ -341,6 +325,9 @@ bookSel.forEach(book => {
 
     const tp = book.querySelector('.tp > p');
     const cp = book.querySelector('.rp > p');
+
+    const name = book.querySelector('.top > h1');
+    const author = book.querySelector('.author');
      
     const addbtn = book.querySelector('[data-element = "+"]');
     const subbtn = book.querySelector('[data-element = "-"]');
@@ -401,7 +388,8 @@ bookSel.forEach(book => {
 
     editBox.addEventListener('click', () => {
         console.log('edit button clicked');
-        
+        const form = document.querySelector('.popup-edit-form');
+        openEditForm(form, name, author, tp, cp);
     })
 
     
@@ -409,8 +397,78 @@ bookSel.forEach(book => {
 }
 
 
+function openEditForm(form, cb_name, cb_author, cb_tp, cb_rp){
+    if(form == null){
+        console.log('editform=null');
+        return;
+    }
+    form.classList.add('active');
+    overlay.classList.add('active');
+
+    let e_name = form.querySelector('#bname');
+    let e_author = form.querySelector('#author');
+    let e_tpages = form.querySelector('#tpages');
+    let e_cpages = form.querySelector('#cpages');
+
+    const editBtn = form.querySelector('#editform-sub');
+
+    
+    console.log(e_name);
+    console.log(e_author);
+    console.log(e_tpages);
+    console.log(e_cpages);
+
+
+    if (!e_name) {
+        console.log('e_name not found');
+        return;
+    }
+
+    if (!cb_name) {
+        console.log('cb_name not found');
+        return;
+    }
+
+    console.log(form);
+    console.log(cb_name.innerText);
+    console.log(cb_author.innerText);
+    console.log(cb_tp.innerText);
+    console.log(cb_rp.innerText);
+
+    e_name.value = cb_name.innerText;
+    e_name.innerText = e_name.value;   
+    
+    e_author.value = cb_author.innerText;
+    e_author.innerText = e_author.value;
+
+    e_tpages.value = cb_tp.innerText;
+    e_tpages.innerText = e_tpages.value;
+
+    e_cpages.value = cb_rp.innerText;
+    e_cpages.innerText = e_cpages.value;
+
+
+    editBtn.addEventListener('submit', (e) => {
+        e.preventDefault();
+        console.log('edit button clicked');
+    })
+    
+}
+
+
+
+
+
+function closeEditForm(form){
+    if(form == null) return;
+    form.classList.remove('active');
+    overlay.classList.remove('active');
+}
+
+
+
 dynamic();
-editForm();
+
 
 //BOOK EDITING FORM
 // const editFormBtn = document.querySelectorAll('.edit > i');
