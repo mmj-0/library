@@ -448,9 +448,57 @@ function openEditForm(form, cb_name, cb_author, cb_tp, cb_rp){
     e_cpages.innerText = e_cpages.value;
 
 
-    editBtn.addEventListener('submit', (e) => {
-        e.preventDefault();
+    editBtn.addEventListener('click', (e) => {
         console.log('edit button clicked');
+
+        let messages = [];
+        if(bname.value === '' || bname.value === null){
+            messages.push('Enter Name');
+        }
+    
+        if(author.value === '' || author.value === null){
+            messages.push('Enter Author');
+        }
+    
+        if(tpages.value === '' || tpages.value === null){
+            messages.push('Enter Total Pages')
+        }
+    
+        if(cpages.value === '' || tpages.value === null){
+            messages.push('Enter Completed Pages')
+        }
+    
+        if(parseInt(cpages.value) > parseInt(tpages.value)){
+            console.log(tpages.value);
+            console.log(cpages.value);
+    
+            messages.push('Total Pages can\'t be smaller than Completed Pages');
+        }
+    
+        if(messages.length > 0){
+            e.preventDefault();
+            error.innerText = messages.join(', ');
+        }
+
+        if (messages.length == 0) {
+            e.preventDefault();
+        
+            if (e_name.value.trim() !== '') {
+                cb_name.innerText = e_name.value;
+            }
+            
+            if (e_author.value.trim() !== '') {
+                cb_author.innerText = e_author.value;
+            }
+            
+            if (e_tpages.value.trim() !== '') {
+                cb_tp.innerText = e_tpages.value;
+            }
+            
+            if (e_cpages.value.trim() !== '') {
+                cb_rp.innerText = e_cpages.value;
+            }
+        }
     })
     
 }
