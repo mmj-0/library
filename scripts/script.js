@@ -84,11 +84,12 @@ const error = document.querySelector('.error');
 
 let library = [];
 
-function Book(name, author, tpages, cpages){
+function Book(name, author, tpages, cpages, index){
     this.name = name;
     this.author = author;
     this.tpages = tpages;
     this.cpages = cpages;
+    this.index = index;
 }
 
 
@@ -98,7 +99,7 @@ function addBookToLibrary(){
     const tpages = document.getElementById('tpages').value;
     const cpages = document.getElementById('cpages').value;
 
-    const newBook = new Book(name, author, tpages, cpages);
+    const newBook = new Book(name, author, tpages, cpages, noOfBooks);
 
     library.push(newBook);
    // console.log(library);
@@ -225,6 +226,8 @@ function createBook(books, bookIndex){
     let i = document.createElement('i');
     i.innerHTML = '<i class="fa-solid fa-pen" style="color: #faebd7;"></i>';
 
+    edit.dataset.bookIndex = bookIndex; //Unique Identifier
+
     edit.appendChild(i);
 
 
@@ -258,33 +261,38 @@ function createBook(books, bookIndex){
 }
 
 addForm.addEventListener('submit', (e) => {
+    e.preventDefault();
     let messages = [];
-    if(bname.value === '' || bname.value === null){
+    if(addForm.bname.value === '' || addForm.bname.value === null){
         messages.push('Enter Name');
     }
 
-    if(author.value === '' || author.value === null){
+    else if(addForm.author.value === '' || addForm.author.value === null){
         messages.push('Enter Author');
     }
 
-    if(tpages.value === '' || tpages.value === null){
+    else if(addForm.tpages.value === '' || addForm.tpages.value === null){
         messages.push('Enter Total Pages')
+        console.log('ece');
     }
 
-    if(cpages.value === '' || tpages.value === null){
+    else if(addForm.cpages.value === '' || addForm.tpages.value === null){
         messages.push('Enter Completed Pages')
+        console.log('ecesdsdsd');
     }
 
-    if(parseInt(cpages.value) > parseInt(tpages.value)){
+    else if(parseInt(addForm.cpages.value) > parseInt(addForm.tpages.value)){
         console.log(tpages.value);
         console.log(cpages.value);
 
         messages.push('Total Pages can\'t be smaller than Completed Pages');
     }
 
+    console.log()
+
     if(messages.length > 0){
         e.preventDefault();
-        error.innerText = messages.join(', ');
+        error.textContent = messages.join(', ');
     }
 
     if(messages.length == 0)
@@ -292,6 +300,7 @@ addForm.addEventListener('submit', (e) => {
         e.preventDefault();
         addBookToLibrary();
         clearForm(addForm);
+        error.textContent = '';
     }
 })
 
@@ -321,7 +330,11 @@ function dynamic(){
 let bookSel = bookHolder.querySelectorAll('.book');
 bookSel.forEach(book => {
 
-    book.addEventListener('click' , () => {console.log(book)})
+    book.addEventListener('click' , () => {console.log(book)});
+    const bi = book.dataset.bookIndex;
+
+    console.log("bi = "+ bi);
+    console.log(library);
 
     const tp = book.querySelector('.tp > p');
     const cp = book.querySelector('.rp > p');
@@ -335,6 +348,8 @@ bookSel.forEach(book => {
     const checkbox = book.querySelector('.com > input');
 
     const editBox = book.querySelector('.edit > i');
+
+    bookIndex = book.getAttribute('data-number'); // Get the bookIndex from the book element's attribute
 
     if(addbtn){
         addbtn.addEventListener('click', () => {
@@ -389,7 +404,7 @@ bookSel.forEach(book => {
     editBox.addEventListener('click', () => {
         console.log('edit button clicked');
         const form = document.querySelector('.popup-edit-form');
-        openEditForm(form, name, author, tp, cp);
+        openEditForm(form, name, author, tp, cp, bookIndex);
     })
 
     
@@ -397,7 +412,7 @@ bookSel.forEach(book => {
 }
 
 
-function openEditForm(form, cb_name, cb_author, cb_tp, cb_rp){
+function openEditForm(form, cb_name, cb_author, cb_tp, cb_rp, bookIndex){
     if(form == null){
         console.log('editform=null');
         return;
@@ -412,11 +427,13 @@ function openEditForm(form, cb_name, cb_author, cb_tp, cb_rp){
 
     const editBtn = form.querySelector('#editform-sub');
 
-    
-    console.log(e_name);
-    console.log(e_author);
-    console.log(e_tpages);
-    console.log(e_cpages);
+    const bookBeingEdited = library[bookIndex];     //currentbook
+
+    // e_name.value = bookBeingEdited.name;
+    // e_author.value = bookBeingEdited.author;
+    // e_tpages.value = bookBeingEdited.tpages;
+    // e_cpages.value = bookBeingEdited.cpages; 
+
 
 
     if (!e_name) {
@@ -448,36 +465,45 @@ function openEditForm(form, cb_name, cb_author, cb_tp, cb_rp){
     e_cpages.innerText = e_cpages.value;
 
 
+
+
     editBtn.addEventListener('click', (e) => {
-        console.log('edit button clicked');
+        e.preventDefault();
+        console.log('edit button clickedsdasdsadsa');
+        console.log("POSTEDDDD!");
+        console.log(e_name.value);
+        console.log(e_author.value);
+        console.log(e_cpages.value);
+        console.log(e_tpages.value);
+
 
         let messages = [];
-        if(bname.value === '' || bname.value === null){
+        if(e_name.value === '' || e_name.value === null){
             messages.push('Enter Name');
         }
     
-        if(author.value === '' || author.value === null){
+        if(e_author.value === '' || e_author.value === null){
             messages.push('Enter Author');
         }
     
-        if(tpages.value === '' || tpages.value === null){
+        if(e_tpages.value === '' || e_tpages.value === null){
             messages.push('Enter Total Pages')
         }
     
-        if(cpages.value === '' || tpages.value === null){
+        if(e_cpages.value === '' || e_cpages.value === null){
             messages.push('Enter Completed Pages')
         }
     
-        if(parseInt(cpages.value) > parseInt(tpages.value)){
-            console.log(tpages.value);
-            console.log(cpages.value);
+        if(parseInt(e_cpages.value) > parseInt(e_tpages.value)){
+            console.log(e_tpages.value);
+            console.log(e_cpages.value);
     
             messages.push('Total Pages can\'t be smaller than Completed Pages');
         }
     
         if(messages.length > 0){
             e.preventDefault();
-            error.innerText = messages.join(', ');
+            error.textContent = messages.join(', ');
         }
 
         if (messages.length == 0) {
@@ -518,6 +544,8 @@ function closeEditForm(form){
 dynamic();
 
 
+
+
 //BOOK EDITING FORM
 // const editFormBtn = document.querySelectorAll('.edit > i');
 
@@ -534,7 +562,7 @@ dynamic();
 //             const form = button.closest('.popup-edit-form')
 //             closeEditForm(form);
 //         })
-//     })
+//     }) 
 // }
 
 // function openEditForm(form){
