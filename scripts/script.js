@@ -471,8 +471,11 @@ function openEditForm(form, bookIndex){
     console.log(library);
     console.log(bookBeingEdited.name);
 
-
-
+    const bookDiv = document.querySelector(`[data-number="${bookIndex}"]`);
+    const title = bookDiv.querySelector('.top > h1');
+    const author = bookDiv.querySelector('.author');
+    const tpages = bookDiv.querySelector('.tp > p');
+    const cpages = bookDiv.querySelector('.rp > p');
 
 
 
@@ -521,18 +524,22 @@ function openEditForm(form, bookIndex){
         
             if (e_name.value.trim() !== '') {
                 bookBeingEdited.name = e_name.value;
+                title.innerText = e_name.value;
             }
             
             if (e_author.value.trim() !== '') {
                 bookBeingEdited.author = e_author.value;
+                author.innerText = e_author.value;
             }
             
             if (e_tpages.value.trim() !== '') {
                 bookBeingEdited.tpages = e_tpages.value;
+                tpages.innerText = e_tpages.value;
             }
             
             if (e_cpages.value.trim() !== '') {
                 bookBeingEdited.cpages = e_cpages.value;
+                cpages.innerText = e_cpages.value;
             }
         }
     });
