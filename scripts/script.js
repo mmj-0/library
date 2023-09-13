@@ -532,7 +532,7 @@ function openEditForm(form, bookIndex){
             return;
         }
 
-        if (messages.length == 0) {
+        if (messages.length === 0) {
             e.preventDefault();
             erroredit.innerText = '';
         
