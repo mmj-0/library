@@ -103,7 +103,7 @@ function addBookToLibrary(){
 
     library.push(newBook);
    // console.log(library);
-    createBook(newBook, noOfBooks);
+    createBook(noOfBooks);
     noOfBooks ++;
 
     if(noOfBooks >= 0 && noOfBooks != null || noOfBooks != undefined)
@@ -111,7 +111,7 @@ function addBookToLibrary(){
 
 }
 
-function createBook(books, bookIndex){
+function createBook(bookIndex){
     //book
     let book = document.createElement('div');   //book layout - contains all below ele
     book.classList.add('book'); 
@@ -122,11 +122,11 @@ function createBook(books, bookIndex){
     top.classList.add('top');
     
     let title = document.createElement('h1');   //title
-    title.innerText = books.name;
+    title.innerText = library[bookIndex].name;
     //console.log(title);
 
     let author = document.createElement('div');     //author
-    author.innerText = `- ${books.author}`;
+    author.innerText = `- ${library[bookIndex].author}`;
     author.classList.add('author');
     //console.log(author);
 
@@ -147,7 +147,7 @@ function createBook(books, bookIndex){
     //console.log(totalPages);
 
     let tpages = document.createElement('p');   //total pages value
-    tpages.innerText= books.tpages;
+    tpages.innerText= library[bookIndex].tpages;
     //console.log(tpages);
 
     tp.appendChild(totalPages);
@@ -163,7 +163,7 @@ function createBook(books, bookIndex){
     //console.log(completedPages);
 
     let cpages = document.createElement('p');       // page read values
-    cpages.innerText = books.cpages;
+    cpages.innerText = library[bookIndex].cpages;
     //console.log(cpages);
 
     rp.appendChild(completedPages);
@@ -242,7 +242,7 @@ function createBook(books, bookIndex){
     
     compBanner.innerHTML = 'COMPLETED!';
     
-    if(parseInt(books.tpages) === parseInt(books.cpages)){
+    if(parseInt(library[bookIndex].tpages) === parseInt(library[bookIndex].cpages)){
         input.checked = true;
         compBanner.classList.add('active');
     }
@@ -331,10 +331,10 @@ let bookSel = bookHolder.querySelectorAll('.book');
 bookSel.forEach(book => {
 
     book.addEventListener('click' , () => {console.log(book)});
-    const bi = book.dataset.bookIndex;
+    const bi = book.getAttribute("data-number");
 
     console.log("bi = "+ bi);
-    console.log(library);
+    console.log(library[bi]);
 
     const tp = book.querySelector('.tp > p');
     const cp = book.querySelector('.rp > p');
@@ -354,8 +354,10 @@ bookSel.forEach(book => {
     if(addbtn){
         addbtn.addEventListener('click', () => {
             console.log(cp.innerText);
-            if(cp.innerText <= tp.innerText-1)
+            if(cp.innerText <= tp.innerText-1){
                 cp.innerText++;
+                library[bi].cpages = cp.innerText;
+            }
             
             bannercheck();
         })
@@ -364,8 +366,10 @@ bookSel.forEach(book => {
     if(subbtn){
         subbtn.addEventListener('click', () => {
             console.log(cp.innerText);
-            if(cp.innerText > 0)
+            if(cp.innerText > 0){
                 --cp.innerText;
+                library[bi].cpages = cp.innerText;
+            }
             bannercheck();
         })
     }
@@ -404,7 +408,7 @@ bookSel.forEach(book => {
     editBox.addEventListener('click', () => {
         console.log('edit button clicked');
         const form = document.querySelector('.popup-edit-form');
-        openEditForm(form, name, author, tp, cp, bookIndex);
+        openEditForm(form, bookIndex);
     })
 
     
@@ -412,7 +416,7 @@ bookSel.forEach(book => {
 }
 
 
-function openEditForm(form, cb_name, cb_author, cb_tp, cb_rp, bookIndex){
+function openEditForm(form, bookIndex){
     if(form == null){
         console.log('editform=null');
         return;
@@ -429,40 +433,45 @@ function openEditForm(form, cb_name, cb_author, cb_tp, cb_rp, bookIndex){
 
     const bookBeingEdited = library[bookIndex];     //currentbook
 
-    // e_name.value = bookBeingEdited.name;
-    // e_author.value = bookBeingEdited.author;
-    // e_tpages.value = bookBeingEdited.tpages;
-    // e_cpages.value = bookBeingEdited.cpages; 
+    e_name.value = bookBeingEdited.name;
+    e_author.value = bookBeingEdited.author;
+    e_tpages.value = bookBeingEdited.tpages;
+    e_cpages.value = bookBeingEdited.cpages; 
 
 
 
-    if (!e_name) {
-        console.log('e_name not found');
-        return;
-    }
+    // if (!e_name) {
+    //     console.log('e_name not found');
+    //     return;
+    // }
 
-    if (!cb_name) {
-        console.log('cb_name not found');
-        return;
-    }
+    // if (!cb_name) {
+    //     console.log('cb_name not found');
+    //     return;
+    // }
 
-    console.log(form);
-    console.log(cb_name.innerText);
-    console.log(cb_author.innerText);
-    console.log(cb_tp.innerText);
-    console.log(cb_rp.innerText);
+    // console.log(form);
+    // console.log(cb_name.innerText);
+    // console.log(cb_author.innerText);
+    // console.log(cb_tp.innerText);
+    // console.log(cb_rp.innerText);
 
-    e_name.value = cb_name.innerText;
-    e_name.innerText = e_name.value;   
+    // e_name.value = e_name.innerText;
+    // e_name.innerText = e_name.value;   
     
-    e_author.value = cb_author.innerText;
-    e_author.innerText = e_author.value;
+    // e_author.value = e_author.innerText;
+    // e_author.innerText = e_author.value;
 
-    e_tpages.value = cb_tp.innerText;
-    e_tpages.innerText = e_tpages.value;
+    // e_tpages.value = e_tpages.innerText;
+    // e_tpages.innerText = e_tpages.value;
 
-    e_cpages.value = cb_rp.innerText;
-    e_cpages.innerText = e_cpages.value;
+    // e_cpages.value = e_cpages.innerText;
+    // e_cpages.innerText = e_cpages.value;
+
+    console.log(library);
+    console.log(bookBeingEdited.name);
+
+
 
 
 
@@ -470,11 +479,12 @@ function openEditForm(form, cb_name, cb_author, cb_tp, cb_rp, bookIndex){
     editBtn.addEventListener('click', (e) => {
         e.preventDefault();
         console.log('edit button clickedsdasdsadsa');
-        console.log("POSTEDDDD!");
+        console.log("CHANGED VALUES");
         console.log(e_name.value);
         console.log(e_author.value);
         console.log(e_cpages.value);
         console.log(e_tpages.value);
+        console.log("----------------");
 
 
         let messages = [];
@@ -510,22 +520,22 @@ function openEditForm(form, cb_name, cb_author, cb_tp, cb_rp, bookIndex){
             e.preventDefault();
         
             if (e_name.value.trim() !== '') {
-                cb_name.innerText = e_name.value;
+                bookBeingEdited.name = e_name.value;
             }
             
             if (e_author.value.trim() !== '') {
-                cb_author.innerText = e_author.value;
+                bookBeingEdited.author = e_author.value;
             }
             
             if (e_tpages.value.trim() !== '') {
-                cb_tp.innerText = e_tpages.value;
+                bookBeingEdited.tpages = e_tpages.value;
             }
             
             if (e_cpages.value.trim() !== '') {
-                cb_rp.innerText = e_cpages.value;
+                bookBeingEdited.cpages = e_cpages.value;
             }
         }
-    })
+    });
     
 }
 
