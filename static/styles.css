@@ -441,7 +441,7 @@ main{
     background-image: linear-gradient(to bottom, rgb(128, 0, 128), rgba(255, 0, 0, 0.986));
 }
 
-.error{
+.error, .error-edit{
     color: red;
     padding: 2px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;

@@ -33,6 +33,12 @@
 const openformBtn = document.querySelectorAll('[data-form-target]');
 const closeformBtn = document.querySelectorAll('[data-close-button]');
 
+const con = document.getElementById('cons');
+
+con.addEventListener('click', (e) =>{
+    console.log(library);
+})
+
 const overlay = document.querySelector('.overlay');
 
 let noOfBooks = 0;
@@ -78,6 +84,7 @@ function clearForm(form){
 const addForm = document.getElementById("addForm");
 const addFormSubmit = document.getElementById('addform-sub');
 const error = document.querySelector('.error');
+const erroredit = document.querySelector('.error-edit');
 
 
  //bookgrid div
@@ -356,7 +363,7 @@ bookSel.forEach(book => {
             console.log(cp.innerText);
             if(cp.innerText <= tp.innerText-1){
                 cp.innerText++;
-                library[bi].cp = cp.innerText;
+                library[bi].cpages = cp.innerText;
             }
             
             bannercheck();
@@ -368,7 +375,7 @@ bookSel.forEach(book => {
             console.log(cp.innerText);
             if(cp.innerText > 0){
                 --cp.innerText;
-                library[bi].cp = cp.innerText;
+                library[bi].cpages = cp.innerText;
             }
             bannercheck();
         })
@@ -397,10 +404,12 @@ bookSel.forEach(book => {
     checkbox.addEventListener('click', () =>  {
         if(checkbox.checked == true){
             cp.innerText = tp.innerText;
+            library[bi].cpages = cp.innerText;
             bannercheck();
         }
         else{
             cp.innerText = tp.innerText - 1;
+            library[bi].cpages = cp.innerText;
             bannercheck();
         }
     })
@@ -414,6 +423,7 @@ bookSel.forEach(book => {
     
 })
 }
+
 
 
 function openEditForm(form, bookIndex){
@@ -430,6 +440,7 @@ function openEditForm(form, bookIndex){
     let e_cpages = form.querySelector('#cpages');
 
     const editBtn = form.querySelector('#editform-sub');
+    const remBtn = form.querySelector('#remove');
 
     const bookBeingEdited = library[bookIndex];     //currentbook
 
@@ -476,6 +487,7 @@ function openEditForm(form, bookIndex){
     const author = bookDiv.querySelector('.author');
     const tpages = bookDiv.querySelector('.tp > p');
     const cpages = bookDiv.querySelector('.rp > p');
+    const checkbox = bookDiv.querySelector('.com > input');
 
 
 
@@ -516,11 +528,13 @@ function openEditForm(form, bookIndex){
     
         if(messages.length > 0){
             e.preventDefault();
-            error.textContent = messages.join(', ');
+            erroredit.innerText = messages.join(', ');
+            return;
         }
 
         if (messages.length == 0) {
             e.preventDefault();
+            erroredit.innerText = '';
         
             if (e_name.value.trim() !== '') {
                 bookBeingEdited.name = e_name.value;
@@ -541,7 +555,37 @@ function openEditForm(form, bookIndex){
                 bookBeingEdited.cpages = e_cpages.value;
                 cpages.innerText = e_cpages.value;
             }
+
+            if(parseInt(e_cpages.value.trim()) == parseInt(e_tpages.value.trim()))
+            {
+                bookDiv.querySelector('.comp-banner').classList.add('active');
+                bookBeingEdited.cpages = cpages.innerText;
+                checkbox.checked = true;
+            }
+            else{
+                checkbox.checked = false; 
+                if(bookDiv.querySelector('.comp-banner').classList.contains('active')){
+                    bookBeingEdited.cpages = cpages.innerText;
+                    bookDiv.querySelector('.comp-banner').classList.remove('active');
+            }
         }
+        }
+
+    });
+
+    
+
+    remBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        library.splice(bookIndex, 1);
+
+        bookDiv.remove();
+
+        e_name.value = '';
+        e_author.value = '';
+        e_tpages.value = '';
+        e_cpages.value = '';
     });
     
 }
