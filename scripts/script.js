@@ -356,7 +356,7 @@ bookSel.forEach(book => {
             console.log(cp.innerText);
             if(cp.innerText <= tp.innerText-1){
                 cp.innerText++;
-                library[bi].cpages = cp.innerText;
+                library[bi].cp = cp.innerText;
             }
             
             bannercheck();
@@ -368,7 +368,7 @@ bookSel.forEach(book => {
             console.log(cp.innerText);
             if(cp.innerText > 0){
                 --cp.innerText;
-                library[bi].cpages = cp.innerText;
+                library[bi].cp = cp.innerText;
             }
             bannercheck();
         })
@@ -529,7 +529,7 @@ function openEditForm(form, bookIndex){
             
             if (e_author.value.trim() !== '') {
                 bookBeingEdited.author = e_author.value;
-                author.innerText = e_author.value;
+                author.innerText = `- ${e_author.value}`;
             }
             
             if (e_tpages.value.trim() !== '') {
